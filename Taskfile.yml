@@ -1,0 +1,9 @@
+version: '3'
+
+tasks:
+  pull-gmail:
+    desc: Pull Gmail messages via Deno script (defaults to INBOX label)
+    cmds:
+      - deno run --allow-net --allow-read --allow-write --allow-env pull-gmail.ts --labels={{.LABELS}}
+    vars:
+      LABELS: '{{.LABELS | default "INBOX"}}'
