@@ -51,7 +51,8 @@ Connection flow: Claude Desktop / client → Settings → Connectors → Add cus
 - **No credentials, API keys, or secrets** in any file. Use environment variables and document what the user must set.
 - **No binary blobs over 1 MB.** No `.exe`, `.dmg`, `.zip`, `.tar.gz`.
 - **No `DROP TABLE`, `DROP DATABASE`, `TRUNCATE`, or unqualified `DELETE FROM`** in SQL files.
-- **MCP servers must be remote** (Supabase Edge Functions). See `server/index.ts` and `docs/01-getting-started.md` Step 7.
+- **Avoid profanity in all content.** Keep docs, examples, seed data, UI copy, prompts, walkthroughs, and generated assets clean and professional.
+- **MCP servers must be remote** (Supabase Edge Functions). Never use `claude_desktop_config.json`, `StdioServerTransport`, or local Node.js servers. All extensions deploy as Edge Functions and connect via Claude Desktop's custom connectors UI (Settings → Connectors → Add custom connector → paste URL). See `server/index.ts` and `docs/01-getting-started.md` Step 7.
 - **Tables created by extensions must GRANT to `service_role`** — Supabase no longer auto-grants CRUD on new projects.
 
 ## PR Standards
@@ -81,3 +82,12 @@ This repo has no build step — contributions are shipped as source (SQL, README
 - `docs/05-tool-audit.md` — MCP tool audit guide; extensions/integrations must link to it.
 - `<category>/_template/` — Starter scaffold for new contributions in each category.
 - `LICENSE.md` — FSL-1.1-MIT terms.
+
+## Local GSD Execution Layer
+
+This repo also has a maintainer-local GSD layer in `.planning/`.
+
+- If `.planning/` exists, use it for local brownfield planning and phased execution.
+- Start with `.planning/STATE.md`, then read `.planning/PROJECT.md`, `.planning/ROADMAP.md`, and the relevant `.planning/codebase/*.md` documents.
+- Keep `.planning/` local. It is gitignored intentionally and is not part of the public contribution contract or upstream PR scope.
+- Public contributor rules still come from `CLAUDE.md`, `AGENTS.md`, `CONTRIBUTING.md`, and the committed repo files.
